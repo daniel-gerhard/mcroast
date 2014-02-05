@@ -1,0 +1,6 @@
+export("mcroast", "mcroastyx")
+exportClasses("mcrot", "mcroastci")
+importFrom("splines", ns)
+S3method(print, mcrot)
+S3method(confint, mcrot)
+S3method(print, mcroastci)
