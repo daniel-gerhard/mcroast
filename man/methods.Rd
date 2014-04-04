@@ -1,6 +1,7 @@
 \name{methods}
 \alias{print.mcrot}
 \alias{print.mcroastci}
+\alias{print.mixedrot}
 
 \title{mcroast Methods}
 \description{
@@ -8,6 +9,7 @@ Print method for the output of function mcroast
 }
 \usage{
 \method{print}{mcrot}(x, digits = max(3, getOption("digits") - 3), ...)
+\method{print}{mixedrot}(x, digits = max(3, getOption("digits") - 3), ...)
 \method{print}{mcroastci}(x, digits = max(3, getOption("digits") - 3), ...)
 }
 
