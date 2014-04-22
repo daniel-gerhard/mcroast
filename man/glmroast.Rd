@@ -42,5 +42,13 @@ Daniel Gerhard
 }
 
 
+\examples{
+## reproducing the attitude towards science data analysis
+## presented in the help pages of function mmm() (package multcomp)
+data("mn6.9", package = "TH.data")
+glmroast(cbind(y1, y2, y3, y4) ~ group, data=mn6.9, 
+         K=diag(2), family=binomial())
+}
+
 \keyword{multivariate}
 \keyword{htest}

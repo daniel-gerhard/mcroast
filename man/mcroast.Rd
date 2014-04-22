@@ -40,6 +40,26 @@ Langsrud, O (2005). Rotation tests. Statistics and Computing 15, 53-60.
 Daniel Gerhard
 }
 
+\examples{
+### data example from Hasler & Hothorn (2011), 
+### A Dunnett-Type Procedure for Multiple Endpoints,
+### The International Journal of Biostatistics: Vol. 7: Iss. 1, Article 3.
+### DOI: 10.2202/1557-4679.1258
+# but using two-sided inference
+
+### see ?coagulation
+data("coagulation", package = "SimComp")
+
+### Dunnett contrast for comparisons to a control
+K <- multcomp::contrMat(table(coagulation$Group), type="Dunnett")
+
+### Rotation test with FWER control
+(mcr <- mcroast(cbind(Thromb.count, ADP, TRAP) ~ Group-1, data=coagulation, K=K))
+mcr$pvalue
+
+### Simultaneous confidence intervals
+confint(mcr)
+}
 
 \keyword{multivariate}
 \keyword{htest}
