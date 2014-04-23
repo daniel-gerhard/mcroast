@@ -7,6 +7,6 @@ Author: Daniel Gerhard
 Maintainer: Daniel Gerhard <gerhard@biostat.uni-hannover.de>
 Description: Adaption of the roast function in package limma to perform a maxT-Test in the multivariate linear model, controlling FWER for multiple contrasts.
 Depends: lme4
-Suggests: multcomp
+Suggests: multcomp, SimComp, car, TH.data
 Imports: splines
 License: GPL

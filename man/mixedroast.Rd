@@ -38,6 +38,18 @@ Langsrud, O (2005). Rotation tests. Statistics and Computing 15, 53-60.
 Daniel Gerhard
 }
 
+\examples{
+# Soils MANOVA example of package car
+data("Soils", package = "car")
+# Using the Group dummy variable summarizing the 2-factorial design
+# Contrasts for all-pair comparison of Group levels
+K <- multcomp::contrMat(table(Soils$Group), type="Tukey")
+# define Block as random factor
+mxr <- mixedroast(cbind(pH, N, Dens, P, Ca, Mg, K, Na, Conduc) ~ Group-1 + (1|Block), 
+                  data=Soils, K=K)
+mxr$pvalue
+}
+
 
 \keyword{multivariate}
 \keyword{htest}
