@@ -1,5 +1,7 @@
-\name{confint.mcrot}
+\name{confint.mcroast}
 \alias{confint.mcrot}
+\alias{confint.mixedrot}
+\alias{confint.glmrot}
 
 
 \title{Simultaneous Confidence Intervals Inverting the Rotation Test}
@@ -8,6 +10,8 @@ Computes simultaneous confidence intervals with a quantile based on the simulate
 }
 \usage{
 \method{confint}{mcrot}(object, parm, level=0.95, ...)
+\method{confint}{mixedrot}(object, parm, level=0.95, ...)
+\method{confint}{glmrot}(object, parm, level=0.95, ...)
 }
 
 \arguments{

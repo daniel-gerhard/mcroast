@@ -76,8 +76,11 @@ glmroastlist <- function(glmlist, K, nrot=9999, adjusted=TRUE){
     rsum <- sapply(1:ncol(modt), function(i) rowSums(sapply(mrot[,i], function(x) x >= modt[,i])))
     pv <- t((rsum + 1)/(nrot + 1))
   }    
-  colnames(Bmat) <- colnames(pv) <- rownames(modt) <- namey
-  rownames(Bmat) <- rownames(pv) <- colnames(modt) <- namek  
+  
+  stderr <- sapply(glmlist, function(mm) sqrt(diag(K %*% vcov(mm) %*% t(K))))
+    
+  colnames(Bmat) <- colnames(pv) <- rownames(modt) <- colnames(stderr) <- namey
+  rownames(Bmat) <- rownames(pv) <- colnames(modt) <- rownames(stderr) <- namek  
   
   out <- list()
   out$Y <- t(y)
@@ -87,6 +90,7 @@ glmroastlist <- function(glmlist, K, nrot=9999, adjusted=TRUE){
   out$B <- Bmat
   out$mrot <- mrot
   out$K <- K
+  out$stderr <- stderr
   
   class(out) <- "glmrot"
   return(out)
