@@ -59,10 +59,18 @@ glmroastlist <- function(glmlist, K, nrot=9999, adjusted=TRUE){
     return(list(modt=modt, modtr=modtr, B=signc * B, sdpost=sd.post))
   })
   
-  Bmat <- t(sapply(outl, function(x) x$B) * t(sapply(1:ncol(W), function(i){
-    Xw <- W[,i] * X
-    sqrt(diag(K %*% solve(t(Xw) %*% Xw) %*% t(K)))
-  })))
+  
+  if (nrow(K) == 1){
+    Bmat <- t(sapply(outl, function(x) x$B) * sapply(1:ncol(W), function(i){
+      Xw <- W[,i] * X
+      sqrt(diag(K %*% solve(t(Xw) %*% Xw) %*% t(K)))
+    }))
+  } else {
+    Bmat <- t(sapply(outl, function(x) x$B) * t(sapply(1:ncol(W), function(i){
+      Xw <- W[,i] * X
+      sqrt(diag(K %*% solve(t(Xw) %*% Xw) %*% t(K)))
+    })))
+  }
   
   if (adjusted){
     modt <- sapply(outl, function(x) x$modt)
