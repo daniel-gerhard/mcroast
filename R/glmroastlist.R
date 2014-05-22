@@ -85,7 +85,7 @@ glmroastlist <- function(glmlist, K, nrot=9999, adjusted=TRUE){
     pv <- t((rsum + 1)/(nrot + 1))
   }    
   
-  stderr <- sapply(glmlist, function(mm) sqrt(diag(K %*% vcov(mm) %*% t(K))))
+  stderr <- rbind(sapply(glmlist, function(mm) sqrt(diag(K %*% vcov(mm) %*% t(K)))))
     
   colnames(Bmat) <- colnames(pv) <- rownames(modt) <- colnames(stderr) <- namey
   rownames(Bmat) <- rownames(pv) <- colnames(modt) <- rownames(stderr) <- namek  
