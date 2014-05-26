@@ -17,5 +17,6 @@ glmroast  <- function(formula, data=NULL, K, family=gaussian(), nrot = 9999, adj
   
   gid <- unclass(factor(responsenumber))
   glmlist <- lapply(1:ny, function(i) glm(Y[,gid == i] ~ X-1, data=data, family=family[[i]], ...))  
+  if (ny == ncol(Y)) names(glmlist) <- colnames(Y)
   glmroastlist(glmlist=glmlist, K=K, nrot=nrot, adjusted=adjusted)
 }
