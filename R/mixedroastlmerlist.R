@@ -74,7 +74,7 @@ mixedroastlmerlist <- function(lmerlist, K, nrot=9999, adjusted=TRUE){
     pv <- t((rsum + 1)/(nrot + 1))
   }    
   
-  stderr <- sapply(lmerlist, function(mm) sqrt(diag(K %*% as.matrix(vcov(mm)) %*% t(K))))
+  stderr <- rbind(sapply(lmerlist, function(mm) sqrt(diag(K %*% as.matrix(vcov(mm)) %*% t(K)))))
   
   colnames(Bmat) <- colnames(pv) <- rownames(modt) <- colnames(stderr) <- namey
   rownames(Bmat) <- rownames(pv) <- colnames(modt) <- rownames(stderr) <- namek  
