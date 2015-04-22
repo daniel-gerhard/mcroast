@@ -56,10 +56,10 @@ mixedroastlmerlist <- function(lmerlist, K, nrot=9999, adjusted=TRUE){
     return(list(modt=modt, modtr=modtr, B=signc * B, sdpost=sd.post))
   })
   
-  Bmat <- t(sapply(outl, function(x) x$B) * t(sapply(Vl, function(V){
+  Bmat <- t(sapply(outl, function(x) x$B) * t(rbind(sapply(Vl, function(V){
     Xv <- as.matrix(solve(t(chol(V))) %*% X)
     sqrt(diag(K %*% solve(t(Xv) %*% Xv) %*% t(K)))
-  })))
+  }))))
   
   if (adjusted){
     modt <- sapply(outl, function(x) x$modt)
