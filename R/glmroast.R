@@ -1,4 +1,4 @@
-glmroast  <- function(formula, data=NULL, K, family=gaussian(), nrot = 9999, adjusted = TRUE, responsenumber=NULL, ...){
+glmroast <- function(formula, data=NULL, K, family=gaussian(), nrot = 9999, adjusted = TRUE, responsenumber=NULL, ...){
   cl <- match.call()
   mf <- match.call(expand.dots = FALSE)
   m <- match(c("formula", "data"), names(mf), 0L)

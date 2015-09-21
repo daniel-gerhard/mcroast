@@ -1,8 +1,8 @@
 Package: mcroast
 Type: Package
 Title: Multiple Contrast Rotation Tests
-Version: 0.0-41
-Date: 2015-04-23
+Version: 0.0-5
+Date: 2015-09-22
 Author: Daniel Gerhard
 Maintainer: Daniel Gerhard <gerhard@biostat.uni-hannover.de>
 Description: Adaption of the roast function in package limma to perform a maxT-Test in the multivariate linear model, controlling FWER for multiple contrasts.

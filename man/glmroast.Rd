@@ -7,7 +7,8 @@ Multiple Contrast Rotation Tests based on Marginal Generalized Linear Models
 Adaption of the roast function in package limma to perform a maxT-test for parameters in multiple generalized linear models, controlling FWER for multiple contrasts.
 }
 \usage{
-glmroast(formula, data = NULL, K, family=gaussian(), nrot = 9999, adjusted = TRUE, responsenumber=NULL, ...)
+glmroast(formula, data = NULL, K, family=gaussian(), 
+         nrot = 9999, adjusted = TRUE, responsenumber=NULL, ...)
 }
 
 \arguments{
@@ -47,7 +48,7 @@ Daniel Gerhard
 ## presented in the help pages of function mmm() (package multcomp)
 data("mn6.9", package = "TH.data")
 glmroast(cbind(y1, y2, y3, y4) ~ group, data=mn6.9, 
-         K=diag(2), family=binomial())
+         K=diag(2), family=binomial(), nrot=999)
 }
 
 \keyword{multivariate}
