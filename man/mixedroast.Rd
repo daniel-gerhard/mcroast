@@ -46,7 +46,7 @@ data("Soils", package = "car")
 K <- multcomp::contrMat(table(Soils$Group), type="Tukey")
 # define Block as random factor
 mxr <- mixedroast(cbind(pH, N, Dens, P, Ca, Mg, K, Na, Conduc) ~ Group-1 + (1|Block), 
-                  data=Soils, K=K)
+                  data=Soils, K=K, nrot=999)
 mxr$pvalue
 }
 

@@ -17,12 +17,15 @@ mixedroastlmerlist <- function(lmerlist, K, nrot=9999, adjusted=TRUE){
   if (is.null(namek)) namek <- paste("C", 1:nrow(K), sep="") 
   
   if (adjusted){
-    crm <- cov2cor(K %*% qr.solve(crossprod(X)) %*% t(K))
-    ssvd <- svd(crm)
-    rval <- t(ssvd$v %*% (t(ssvd$u) * sqrt(ssvd$d)))
-    R <- t(replicate(nrot, as.vector(matrix(rnorm((d+1) * ncol(crm)), nrow = (d+1), byrow = TRUE) %*% rval)))    
+    rvals <- lapply(1:length(Vl), function(i){
+      crm <- cov2cor(K %*% qr.solve(crossprod(as.matrix(solve(t(chol(Vl[[i]]))) %*% design))) %*% t(K))
+      ssvd <- svd(crm)
+      t(ssvd$v %*% (t(ssvd$u) * sqrt(ssvd$d)))
+    })
     Rid <- matrix(as.logical(rep(1, d+1) %o% diag(nrow(K))), ncol=nrow(K))
-  }
+    Rarray <- replicate(nrot, matrix(rnorm((d+1) * nrow(K)), nrow = (d+1), byrow = TRUE))
+    Rlist <- lapply(rvals, function(rval) t(apply(Rarray, 3, function(rmat) as.vector(rmat %*% rval))))    
+  }  
   
   outl <- lapply(1:nrow(K), function(ir){
     contrast <- K[ir,]    
@@ -42,12 +45,14 @@ mixedroastlmerlist <- function(lmerlist, K, nrot=9999, adjusted=TRUE){
     modt <- zscoreT(modto, df = d0 + d)
     
     if (adjusted){
-      Rr <- R[, Rid[,ir]]      
+      Rrl <- lapply(Rlist, function(R) R[, Rid[,ir]])   
+      Rr <- lapply(Rrl, function(Rr) Rr/sqrt(rowSums(Rr^2)))
+      Br <- sapply(1:ncol(Y), function(i) Rr[[i]] %*% Y[,i])
     } else {
       Rr <- matrix(rnorm(nrot * (d + 1)), nrot, d + 1)
+      Rr <- Rr/sqrt(rowSums(Rr^2))
+      Br <- Rr %*% Y
     }
-    Rr <- Rr/sqrt(rowSums(Rr^2))
-    Br <- Rr %*% Y
     s2r <- (matrix(YY, nrot, nset, byrow = TRUE) - Br^2)/d
     sdr.post <- sqrt(s2r) 
     
