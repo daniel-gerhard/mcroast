@@ -1,2 +1,3 @@
+^.*\.attr$
 ^.*\.Rproj$
 ^\.Rproj\.user$
